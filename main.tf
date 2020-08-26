@@ -1,8 +1,8 @@
 #This Terraform Code Deploys Basic VPC Infra.
 provider "aws" {
-    access_key = "${var.aws_access_key}"
-    secret_key = "${var.aws_secret_key}"
-    region = "${var.aws_region}"
+    access_key = var.aws_access_key
+    secret_key = var.aws_secret_key
+    region = var.aws_region
 }
 
 resource "aws_vpc" "default" {
@@ -58,7 +58,7 @@ resource "aws_route_table" "terraform-public" {
 
     route {
         cidr_block = "0.0.0.0/0"
-        gateway_id = "${aws_internet_gateway.default.id}"
+        gateway_id = aws_internet_gateway.default.id
     }
 
     tags = {
@@ -94,7 +94,7 @@ resource "aws_security_group" "allow_all" {
 data "aws_ami" "my_ami" {
      most_recent      = true
      #name_regex       = "^mavrick"
-     owners           = ["721834156908"]
+     owners           = ["521818090808"]
 }
 
 
@@ -118,7 +118,7 @@ resource "aws_instance" "web-1" {
 
 
 output "ami_id" {
- value = "${data.aws_ami.my_ami.id}"
+ value = data.aws_ami.my_ami.id
 }
 #!/bin/bash
 # echo "Listing the files in the repo."
